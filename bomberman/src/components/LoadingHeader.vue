@@ -2,16 +2,17 @@
     <div id="LoadingHeader">
         <!-- Header -->
         <h1 id="greeting">
-            Welcome to Bomberman! <br>
+            Welcome to the lobby! <br>
             Please wait for the other players to join
         </h1>
 
         <!-- Loading Icon -->
         <div class="lds-heart"><div>
             <!-- CHANGE IMAGE! -->
-            <img src="../assets/logo.png"/>            
+            <img class="logo" src="../assets/logo.png"/>            
         </div></div>
-     </div>
+
+    </div>
    
 </template>
 
@@ -25,6 +26,12 @@ export default {
 
 
 <style scoped>
+
+.logo {
+    height: 100px;
+    width: 100px;
+}
+
 #greeting {
   background-color: #303338;
   color: white;
