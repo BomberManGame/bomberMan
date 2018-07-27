@@ -1,13 +1,16 @@
 <template>
-  <!-- <div class="bombers">
+  <div class="bombers">
     <p><h1> POLICE </h1> VS  <h1> TERORIS </h1></p>
   <div class="row">
   <div v-bind:class="cols">
       <h1> TERORIS </h1>
+
   <img v-if='exist' @click="add" width="200px" src="../assets/bluebutton.gif"/>
   <img  v-if='show1' width="300px" src="../assets/win.jpg"/>
   <img v-if='kalah' width="300px" src="../assets/loose.jpg"/>
 </div>
+
+
 
   <div v-if='exist' class="col-sm-4" >
   <img v-if='exist' v-bind:width="width" src="../assets/bom.gif"/></div>
@@ -20,7 +23,7 @@
 
 
   </div>
-  </div> -->
+  </div>
 </template>
 
 
