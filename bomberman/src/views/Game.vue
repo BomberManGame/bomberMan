@@ -54,16 +54,15 @@ export default {
         getBomb(val){
              console.log("======boom======",val.boom)
              console.log("=======room=====",val.roomId)
+             console.log("===police====",val.police)
+             console.log("===teror===",val.teror)
              this.boomSize = val.boom
-             console.log("============",val.police)
              this.roomId = val.roomId
-             console.log("============",val.teror)
              this.explode(val.boom)
         }, 
         createRoom(){
             // console.log("create 001")
-
-            // db.ref('bomber/' + 'room'+1).set({
+            // db.ref('bomber/' + 'room').set({
             //     roomId: 2,
             //     teror: '',
             //     police :'',
@@ -72,8 +71,8 @@ export default {
         },
         upSize(){
             console.log("upsize", this.boomSize + 5)
+            console.log(postData,this.roomId, this.boomSize, upgradeBoom)
             let room = localStorage.getItem("room")
-            console.log("=============>upsize room localstor",room)
             let upgradeBoom = this.boomSize + 5
             var postData = {
                 roomId : room,
@@ -81,15 +80,15 @@ export default {
                 teror: this.teror,
                 boom : upgradeBoom
             }
-            console.log(postData,this.roomId, this.boomSize, upgradeBoom)
-             var updates = {};
-             //harusnya '/boomber/room? dari localstorage
+            
+            var updates = {};
+            //harusnya '/boomber/room? dari localstorage
             updates['/bomber'+`/room${room}`] = postData;
            return db.ref().update(updates);
-
         },
         downSize(){
-            console.log("upsize", this.boomSize - 5)
+            console.log("downsize", this.boomSize - 5)
+            console.log(postData,this.roomId, this.boomSize, upgradeBoom)
             let room = localStorage.getItem("room")
             let upgradeBoom = this.boomSize - 5
             var postData = {
@@ -98,14 +97,13 @@ export default {
                 teror: this.teror,
                 boom : upgradeBoom
             }
-            console.log(postData,this.roomId, this.boomSize, upgradeBoom)
-             var updates = {};
+            
+            var updates = {};
             updates['/bomber'+`/room${room}`] = postData;
            return db.ref().update(updates);
         },
         play(){
             let room = localStorage.getItem('room')
-           
             if(room){
                 this.isPlay = true
                 this.isExplode = false
@@ -137,17 +135,16 @@ export default {
             console.log("this play",this.isPlay)
             if(num > 300){
                 this.isExplode = true
+                this.isWinner = false
                 this.isPlay = false
             }else if(num < 200 && num > 0){
                 this.isExplode = false
             }else if(num < 0){
                 this.isWinner = true
+                this.isExplode = false
                 this.isPlay = false
             }
         }
-    },
-    computed:{
-        
     }
 }
 </script>
