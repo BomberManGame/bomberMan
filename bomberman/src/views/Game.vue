@@ -42,13 +42,13 @@ export default {
   mounted () {
       //db ref nya ke 'bomber/room? dari localstorage
     let room = localStorage.getItem("room")
-    console.log("iiniiiiiii roooomm-------",room)
+
     if(room === null){
       alert('Please select room to play the game!')
       this.$router.replace('/')
     } else {
         var getBoomSize = db.ref('bomber/'+ `room${room}`)
-        console.log(getBoomSize)
+        // console.log(getBoomSize)
         getBoomSize.on('value',(snapshot)=> {
             this.getBomb(snapshot.val());
             // this.play()
@@ -59,13 +59,12 @@ export default {
     getBomb (val) {
       console.log("======boom======", val.boom)
       console.log("=======room=====", val.roomId)
-      console.log("===police====", val.police)
-      console.log("===teror===", val.teror)
+     if(val.boom <= 1000 && val.boom >= 0){
       this.boomSize = val.boom
       this.explode(val.boom)
+     }
       this.roomId = val.roomId
-      console.log("============", val.teror)
-      this.explode(val.boom)
+    
     },
     upSize () {
       console.log("upsize", this.boomSize + 5)
@@ -74,8 +73,8 @@ export default {
       let upgradeBoom = this.boomSize + 5
       var postData = {
           roomId : room,
-          police : this.police,
-          teror: this.teror,
+        //   police : this.police,
+        //   teror: this.teror,
           boom : upgradeBoom
       }
       
@@ -91,8 +90,8 @@ export default {
       let upgradeBoom = this.boomSize - 5
       var postData = {
           roomId : room,
-          police : this.police,
-          teror: this.teror,
+        //   police : this.police,
+        //   teror: this.teror,
           boom : upgradeBoom
       }
       
@@ -109,8 +108,8 @@ export default {
 
         var postData = {
           roomId : room,
-          police : this.police,
-          teror: this.teror,
+        //   police : this.police,
+        //   teror: this.teror,
           boom : 500
         }
 
@@ -130,11 +129,11 @@ export default {
     explode(num) {
       console.log("explodeee", num)
       console.log("this play", this.isPlay)
-      if (num >= 1005) {
+      if (num >= 995) {
         this.isExplode = true
         this.isWinner = false
         this.isPlay = false
-      } else if (num < 1000 && num > 0) {
+      } else if (num < 995 && num > 1) {
         this.isExplode = false
       } else if (num <= 0) {
         this.isWinner = true
