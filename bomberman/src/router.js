@@ -5,6 +5,7 @@ import Pending from './views/Pending.vue'
 import Game from './views/Game.vue'
 import CreateRoom from './views/CreateRoom.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,5 +30,6 @@ export default new Router({
       name : 'createRoom',
       component: CreateRoom
     }
-  ]
+  ],
+  mode: 'history'
 })
