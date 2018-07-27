@@ -1,6 +1,57 @@
 <template>
-    <div>
-        <div class="row">
+
+<div class="bombers">
+
+
+<button v-on:click="createRoom" type="button" class="btn btn-success">CREATE </button> |
+<button v-on:click="play" type="button" class="btn btn-info">PLAY </button> |
+<button v-on:click="exit" type="button" class="btn btn-warning">EXIT </button>
+      <!-- <p><h1> POLICE </h1> VS  <h1> TERORIS </h1></p> -->
+      <div class="row">
+      <div class="col-sm-3">
+          <h1> TERORIS </h1>
+      <img v-on:click="upSize" alt="sss" width="200px" src="/img/bluebutton.gif"/>
+      <!-- <img width="300px" src="/img/win.jpg"/>
+      <img width="300px" src="/img/loose.jpg"/> -->
+    </div>
+
+      <div  class="col-sm-6" >
+      <!-- <img v-bind:width="width" src="/img/bom.gif"/> -->
+          <img v-if="isPlay" src="/img/bomb.gif" alt="bomb" v-bind:height="boomSize" v-bind:width="boomSize">
+            <h2 v-if="isExplode"> TERORIS WIN </h2>
+          <img v-if="isExplode" src="/img/explode.gif" alt="bomb" height="100%" width="100%">
+          <h2 v-if="isWinner"> Police WIN </h2>
+           <img v-if="isWinner" src="/img/winner.gif" alt="bomb" height="100%" width="100%">
+    </div>
+
+
+      <div class="col-sm-3">
+          <h1> POLICE  </h1>
+      <img v-on:click="downSize" width="200px" src="/img/redbutton.gif"/>
+        <!-- <img width="350px" src="/img/win.jpg"/>
+        <img  width="300px" src="/img/loose.jpg"/> -->
+      </div>
+
+
+      </div>
+
+      <!-- <div class="row"> -->
+        <!-- <img v-on:click="upSize" src="/img/bluebutton.gif"/> -->
+          <!-- <button v-on:click="upSize">
+              Increase font size
+          </button> -->
+          <!-- <button v-on:click="downSize"> -->
+              <!-- Decrease font size -->
+          <!-- </button> -->
+      <!-- </div> -->
+
+
+
+
+</div>
+
+
+        <!-- <div class="row">
             <button v-on:click="upSize">
                 Increase font size
             </button>
@@ -8,22 +59,25 @@
                 Decrease font size
             </button>
         </div>
+
+
+
         <br>
         <div class="row">
             <img v-if="isPlay" src="/img/bomb.gif" alt="bomb" v-bind:height="boomSize" v-bind:width="boomSize">
             <img v-if="isExplode" src="/img/explode.gif" alt="bomb" height="100%" width="100%">
              <img v-if="isWinner" src="/img/winner.gif" alt="bomb" height="100%" width="100%">
-            
+
         </div>
         <button v-on:click="createRoom">create</button>
         <button v-on:click="play">play</button>
-        <button v-on:click="exit">exit</button>
-        
-    </div>
+        <button v-on:click="exit">exit</button> -->
+
+
 </template>
 
-<script>
 
+<script>
 import db from '@/firebase/firebase.js'
 
 export default {
@@ -48,7 +102,7 @@ export default {
             this.getBomb(snapshot.val());
             // this.play()
         })
-        
+
     },
     methods:{
         getBomb(val){
@@ -59,7 +113,7 @@ export default {
              this.roomId = val.roomId
              console.log("============",val.teror)
              this.explode(val.boom)
-        }, 
+        },
         createRoom(){
             // console.log("create 001")
 
@@ -105,24 +159,24 @@ export default {
         },
         play(){
             let room = localStorage.getItem('room')
-           
+
             if(room){
                 this.isPlay = true
                 this.isExplode = false
                 this.isWinner = false
-                
-          
+
+
                 var postData = {
                     roomId : room,
                     police : this.police,
                     teror: this.teror,
                     boom : 200
                 }
-          
+
                 var updates = {};
                 updates['/bomber'+`/room${room}`] = postData;
                 return db.ref().update(updates);
-                    
+
             }else{
                 this.isPlay = false
             }
@@ -147,7 +201,7 @@ export default {
         }
     },
     computed:{
-        
+
     }
 }
 </script>
