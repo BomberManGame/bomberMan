@@ -19,7 +19,7 @@
     <center>
       <div class="row">
         <div class="box col-sm-5">
-          <div class="col-sm-5" @click="selectPos1">
+          <div class="col-sm-5" @click="selectPos1" v-bind:style="{border: borderPolice1+ 'px solid red'}">
             <img src="../../src/assets/police.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Police</p>
           </div>
@@ -27,14 +27,14 @@
             <h5>Room1</h5>
             <img src="../../src/assets/vs.png" class="vs" style="width:100%" alt="Image">
           </div>
-          <div class="col-sm-5" @click="selectTer1">
+          <div class="col-sm-5" @click="selectTer1" v-bind:style="{border: borderTer1+ 'px solid red'}">
             <img src="../../src/assets/terorism.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Terorist</p>
           </div>
         </div>
 
         <div class="box col-sm-5">
-          <div class="col-sm-5" @click="selectPos2">
+          <div class="col-sm-5" @click="selectPos2" v-bind:style="{border: borderPolice2+ 'px solid red'}">
             <img src="../../src/assets/police.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Police</p>
           </div>
@@ -42,14 +42,14 @@
             <h5>Room2</h5>
             <img src="../../src/assets/vs.png" class="vs" style="width:100%" alt="Image">
           </div>
-          <div class="col-sm-5" @click="selectTer2">
+          <div class="col-sm-5" @click="selectTer2" v-bind:style="{border: borderTer2+ 'px solid red'}">
             <img src="../../src/assets/terorism.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Terorist</p>
           </div>
         </div>
 
         <div class="box col-sm-5">
-          <div class="col-sm-5" @click="selectPos3">
+          <div class="col-sm-5" @click="selectPos3" v-bind:style="{border: borderPolice3+ 'px solid red'}">
             <img src="../../src/assets/police.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Police</p>
           </div>
@@ -57,14 +57,14 @@
             <h5>Room3</h5>
             <img src="../../src/assets/vs.png" class="vs" style="width:100%" alt="Image">
           </div>
-          <div class="col-sm-5" @click="selectTer3">
+          <div class="col-sm-5" @click="selectTer3" v-bind:style="{border: borderTer3+ 'px solid red'}">
             <img src="../../src/assets/terorism.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Terorist</p>
           </div>
         </div>
 
         <div class="box col-sm-5">
-          <div class="col-sm-5" @click="selectPos4">
+          <div class="col-sm-5" @click="selectPos4" v-bind:style="{border: borderPolice4+ 'px solid red'}">
             <img src="../../src/assets/police.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Police</p>
           </div>
@@ -72,7 +72,7 @@
             <h5>Room4</h5>
             <img src="../../src/assets/vs.png" class="vs" style="width:100%" alt="Image">
           </div>
-          <div class="col-sm-5" @click="selectTer4">
+          <div class="col-sm-5" @click="selectTer4" v-bind:style="{border: borderTer4+ 'px solid red'}">
             <img src="../../src/assets/terorism.png" class="img-responsive" style="width:100%" alt="Image">
             <p>Terorist</p>
           </div>
@@ -83,11 +83,21 @@
 </template>
 
 <script>
+import db from '@/firebase/firebase.js'
+
 export default {
   name: 'homepage',
   props: [],
   data () {
     return {
+      borderPolice1 : '',
+      borderPolice2 : '',
+      borderPolice3 : '',
+      borderPolice4 : '',
+      borderTer1: '',
+      borderTer2: '',
+      borderTer3: '',
+      borderTer4: '',
       name: '',
       position: '',
       playersRoom1: [],
@@ -99,6 +109,15 @@ export default {
     }
   },
   methods: {
+    createRoom(){
+            // console.log("create 001")
+            // db.ref('bomber/' + 'room').set({
+            //     roomId: 2,
+            //     teror: '',
+            //     police :'',
+            //     bomb: 100,
+            // });
+    },
     submitPlayer () {
       if (this.position.slice(-1) === '1') {
         this.playersRoom1.push({name: this.name, position: this.position})
@@ -106,7 +125,8 @@ export default {
         this.name = ''
         this.seen = false
         if (this.playersRoom1.length === 2) {
-          console.log('yuk main room 1', this.playersRoom1)
+          // console.log('yuk main room 1', this.playersRoom1)
+          this.$router.replace('/game')
           this.playersRoom1 = []
           this.seen = false
         }
@@ -147,6 +167,12 @@ export default {
       if (this.playersRoom1.length === 0) {
         this.position = 'Police1'
         this.seen = true
+        this.borderPolice1 = 2
+        this.borderPolice2 = 0
+        this.borderPolice3 = 0
+        this.borderPolice4 = 0
+        // console.log("-----police 1 border",this.borderPolice1 );
+        
       } else {
         if (this.playersRoom1[0].position === 'Police1') {
           alert('Police has been taken! Please choose another room or select Terorist.')
@@ -160,6 +186,11 @@ export default {
       if (this.playersRoom2.length === 0) {
         this.position = 'Police2'
         this.seen = true
+        this.borderPolice1 = 0
+        this.borderPolice2 = 2
+        this.borderPolice3 = 0
+        this.borderPolice4 = 0
+        console.log("-----police 2 room",this.playersRoom2 )
       } else {
         if (this.playersRoom2[0].position === 'Police2') {
           alert('Police has been taken! Please choose another room or select Terorist.')
@@ -174,6 +205,11 @@ export default {
       if (this.playersRoom3.length === 0) {
         this.position = 'Police3'
         this.seen = true
+        this.borderPolice1 = 0
+        this.borderPolice2 = 0
+        this.borderPolice3 = 2
+        this.borderPolice4 = 0
+        console.log("-----police 3 room",this.playersRoom3 );
       } else {
         if (this.playersRoom3[0].position === 'Police3') {
           alert('Police has been taken! Please choose another room or select Terorist.')
@@ -187,6 +223,11 @@ export default {
       if (this.playersRoom4.length === 0) {
         this.position = 'Police4'
         this.seen = true
+        this.borderPolice1 = 0
+        this.borderPolice2 = 0
+        this.borderPolice3 = 0
+        this.borderPolice4 = 2
+        console.log("-----police 4 room",this.playersRoom4 );
       } else {
         if (this.playersRoom4[0].position === 'Police4') {
           alert('Police has been taken! Please choose another room or select Terorist.')
@@ -210,7 +251,12 @@ export default {
       // this.room = 1
       this.position = 'Terorist1'
       this.seen = true
-      this.room = 1
+      this.borderTer1 = 2
+      this.borderTer2 = 0
+      this.borderTer3 = 0
+      this.borderTer4 = 0
+      localStorage.setItem('room', 1)
+      // this.room = 1
     },
     selectTer2 () {
       // if (this.playersRoom2.length === 0) {
@@ -226,7 +272,12 @@ export default {
       // this.room = 2
       this.position = 'Terorist2'
       this.seen = true
-      this.room = 2
+      this.borderTer1 = 0
+      this.borderTer2 = 2
+      this.borderTer3 = 0
+      this.borderTer4 = 0      
+      // this.room = 2
+      localStorage.setItem('room', 2)
     },
     selectTer3 () {
       // if (this.playersRoom3.length === 0) {
@@ -242,7 +293,12 @@ export default {
       // this.room = 3
       this.position = 'Terorist3'
       this.seen = true
-      this.room = 3
+      this.borderTer1 = 0
+      this.borderTer2 = 0
+      this.borderTer3 = 2
+      this.borderTer4 = 0 
+      // this.room = 3
+      localStorage.setItem('room', 3)
     },
     selectTer4 () {
       // if (this.playersRoom4.length === 0) {
@@ -258,7 +314,12 @@ export default {
       // this.room = 4
       this.position = 'Terorist4'
       this.seen = true
-      this.room = 4
+      this.borderTer1 = 0
+      this.borderTer2 = 0
+      this.borderTer3 = 0
+      this.borderTer4 = 4
+      // this.room = 4
+      localStorage.setItem('room', 4)
     }
   }
 }
@@ -288,4 +349,5 @@ export default {
   margin-bottom: 50px;
   margin-left: 20px;
 }
+
 </style>
