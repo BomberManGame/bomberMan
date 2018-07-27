@@ -3,14 +3,14 @@
         <!-- Header -->
         <h1 id="greeting">
             Welcome to the lobby! <br>
-            Please wait for the other players to join
+            The enemy is readying up...
         </h1>
 
         <!-- Loading Icon -->
         <div class="lds-heart"><div>
-            <!-- CHANGE IMAGE! -->
-            <img class="logo" src="../assets/logo.png"/>            
+          <img class="logo" src="../assets/bom.gif"/>            
         </div></div>
+        
 
     </div>
    
@@ -28,13 +28,15 @@ export default {
 <style scoped>
 
 .logo {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
 }
 
 #greeting {
   background-color: #303338;
   color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .lds-heart {

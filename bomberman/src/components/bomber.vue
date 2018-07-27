@@ -1,6 +1,6 @@
 <template>
   <div class="bombers">
-    <p><h1> POLICE </h1> VS  <h1> TERORIS </h1></p>
+    <p><h1> POLICE </h1> VS  <h1> TERORIS </h1>
   <div class="row">
   <div v-bind:class="cols">
       <h1> TERORIS </h1>
