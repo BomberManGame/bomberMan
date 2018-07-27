@@ -2,11 +2,9 @@
   <div class="container text-center">
     <h1>BOMBERMAN</h1><br>
     <div v-if="seen">
-      <form>
         <h2>And please input your name here:</h2>
         <input type="text" class="name" v-model="name" placeholder="Input your name...">
         <button class="btnInputName" @click="submitPlayer">Submit</button>
-      </form>
     </div>
     <div v-else>
       <form>
@@ -108,34 +106,41 @@ export default {
       room: ''
     }
   },
+  mounted() {
+    localStorage.clear()
+  },
   methods: {
-    createRoom(){
-            // console.log("create 001")
-            // db.ref('bomber/' + 'room').set({
-            //     roomId: 2,
-            //     teror: '',
-            //     police :'',
-            //     bomb: 100,
-            // });
-    },
     submitPlayer () {
+        localStorage.setItem('name', this.name)
+        localStorage.setItem('position', this.position.slice(0,-1))
       if (this.position.slice(-1) === '1') {
         this.playersRoom1.push({name: this.name, position: this.position})
+        db.ref('bomber/' + 'room' + 1 +`/${this.position.slice(0,-1)}`).push().set({
+          roomId: 1,
+          name: this.name,
+          position :this.position.slice(0,-1)
+        });
         console.log('posisi room 1 coba teroris-------', this.playersRoom1)
         this.name = ''
         this.seen = false
-        if (this.playersRoom1.length === 2) {
+        if (this.playersRoom1.length === 1) {
           // console.log('yuk main room 1', this.playersRoom1)
-          this.$router.replace('/game')
+          this.$router.replace('/loading')
           this.playersRoom1 = []
           this.seen = false
         }
       }
       if (this.position.slice(-1) === '2') {
         this.playersRoom2.push({name: this.name, position: this.position})
+        db.ref('bomber/' + 'room' + 2 +`/${this.position.slice(0,-1)}`).push().set({
+          roomId: 2,
+          name: this.name,
+          position :this.position.slice(0,-1)
+        });
         this.name = ''
         this.seen = false
-        if (this.playersRoom2.length === 2) {
+        if (this.playersRoom2.length === 1) {
+          this.$router.replace('/loading')
           console.log('yuk main room 2', this.playersRoom2)
           this.playersRoom2 = []
           this.seen = false
@@ -143,9 +148,15 @@ export default {
       }
       if (this.position.slice(-1) === '3') {
         this.playersRoom3.push({name: this.name, position: this.position})
+        db.ref('bomber/' + 'room' + 3 +`/${this.position.slice(0,-1)}`).push().set({
+          roomId: 3,
+          name: this.name,
+          position :this.position.slice(0,-1)
+        });
         this.name = ''
         this.seen = false
-        if (this.playersRoom3.length === 2) {
+        if (this.playersRoom3.length === 1) {
+          this.$router.replace('/loading')
           console.log('yuk main room 3', this.playersRoom3)
           this.playersRoom3 = []
           this.seen = false
@@ -153,9 +164,15 @@ export default {
       }
       if (this.position.slice(-1) === '4') {
         this.playersRoom4.push({name: this.name, position: this.position})
+        db.ref('bomber/' + 'room' + 4 +`/${this.position.slice(0,-1)}`).push().set({
+          roomId: 4,
+          name: this.name,
+          position :this.position.slice(0,-1)
+        });
         this.name = ''
         this.seen = false
-        if (this.playersRoom4.length === 2) {
+        if (this.playersRoom4.length === 1) {
+          this.$router.replace('/loading')
           console.log('yuk main room 4', this.playersRoom4)
           this.playersRoom4 = []
           this.seen = false
@@ -171,6 +188,10 @@ export default {
         this.borderPolice2 = 0
         this.borderPolice3 = 0
         this.borderPolice4 = 0
+        this.borderTer1 = 0
+        this.borderTer2 = 0
+        this.borderTer3 = 0
+        this.borderTer4 = 0
         // console.log("-----police 1 border",this.borderPolice1 );
         
       } else {
@@ -190,6 +211,10 @@ export default {
         this.borderPolice2 = 2
         this.borderPolice3 = 0
         this.borderPolice4 = 0
+        this.borderTer1 = 0
+        this.borderTer2 = 0
+        this.borderTer3 = 0
+        this.borderTer4 = 0
         console.log("-----police 2 room",this.playersRoom2 )
       } else {
         if (this.playersRoom2[0].position === 'Police2') {
@@ -209,6 +234,10 @@ export default {
         this.borderPolice2 = 0
         this.borderPolice3 = 2
         this.borderPolice4 = 0
+        this.borderTer1 = 0
+        this.borderTer2 = 0
+        this.borderTer3 = 0
+        this.borderTer4 = 0
         console.log("-----police 3 room",this.playersRoom3 );
       } else {
         if (this.playersRoom3[0].position === 'Police3') {
@@ -227,6 +256,10 @@ export default {
         this.borderPolice2 = 0
         this.borderPolice3 = 0
         this.borderPolice4 = 2
+        this.borderTer1 = 0
+        this.borderTer2 = 0
+        this.borderTer3 = 0
+        this.borderTer4 = 0
         console.log("-----police 4 room",this.playersRoom4 );
       } else {
         if (this.playersRoom4[0].position === 'Police4') {
@@ -255,6 +288,10 @@ export default {
       this.borderTer2 = 0
       this.borderTer3 = 0
       this.borderTer4 = 0
+      this.borderPolice1 = 0
+      this.borderPolice2 = 0
+      this.borderPolice3 = 0
+      this.borderPolice4 = 0
       localStorage.setItem('room', 1)
       // this.room = 1
     },
@@ -275,7 +312,11 @@ export default {
       this.borderTer1 = 0
       this.borderTer2 = 2
       this.borderTer3 = 0
-      this.borderTer4 = 0      
+      this.borderTer4 = 0 
+      this.borderPolice1 = 0
+      this.borderPolice2 = 0
+      this.borderPolice3 = 0
+      this.borderPolice4 = 0     
       // this.room = 2
       localStorage.setItem('room', 2)
     },
@@ -297,6 +338,10 @@ export default {
       this.borderTer2 = 0
       this.borderTer3 = 2
       this.borderTer4 = 0 
+      this.borderPolice1 = 0
+      this.borderPolice2 = 0
+      this.borderPolice3 = 0
+      this.borderPolice4 = 0
       // this.room = 3
       localStorage.setItem('room', 3)
     },
@@ -318,6 +363,10 @@ export default {
       this.borderTer2 = 0
       this.borderTer3 = 0
       this.borderTer4 = 4
+      this.borderPolice1 = 0
+      this.borderPolice2 = 0
+      this.borderPolice3 = 0
+      this.borderPolice4 = 0
       // this.room = 4
       localStorage.setItem('room', 4)
     }
