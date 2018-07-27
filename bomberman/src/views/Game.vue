@@ -39,7 +39,10 @@ export default {
         }
     },
     mounted(){
-        var getBoomSize = db.ref('bomber/room1')
+        //db ref nya ke 'bomber/room? dari localstorage
+        let room = localStorage.getItem("room")
+        console.log(room)
+        var getBoomSize = db.ref('bomber/'+ `room${room}`)
         console.log(getBoomSize)
          getBoomSize.on('value',(snapshot)=> {
             this.getBomb(snapshot.val());
@@ -50,7 +53,7 @@ export default {
     methods:{
         getBomb(val){
              console.log("======boom======",val.boom)
-             console.log("============",val.roomId)
+             console.log("=======room=====",val.roomId)
              this.boomSize = val.boom
              console.log("============",val.police)
              this.roomId = val.roomId
@@ -69,36 +72,40 @@ export default {
         },
         upSize(){
             console.log("upsize", this.boomSize + 5)
+            let room = localStorage.getItem("room")
+            console.log("=============>upsize room localstor",room)
             let upgradeBoom = this.boomSize + 5
             var postData = {
-                roomId : 1,
+                roomId : room,
                 police : this.police,
                 teror: this.teror,
                 boom : upgradeBoom
             }
             console.log(postData,this.roomId, this.boomSize, upgradeBoom)
              var updates = {};
-            updates['/bomber'+'/room1'] = postData;
+             //harusnya '/boomber/room? dari localstorage
+            updates['/bomber'+`/room${room}`] = postData;
            return db.ref().update(updates);
 
         },
         downSize(){
             console.log("upsize", this.boomSize - 5)
+            let room = localStorage.getItem("room")
             let upgradeBoom = this.boomSize - 5
             var postData = {
-                roomId : 1,
+                roomId : room,
                 police : this.police,
                 teror: this.teror,
                 boom : upgradeBoom
             }
             console.log(postData,this.roomId, this.boomSize, upgradeBoom)
              var updates = {};
-            updates['/bomber'+'/room1'] = postData;
+            updates['/bomber'+`/room${room}`] = postData;
            return db.ref().update(updates);
         },
         play(){
             let room = localStorage.getItem('room')
-            localStorage.setItem("room", 1)
+           
             if(room){
                 this.isPlay = true
                 this.isExplode = false
@@ -106,14 +113,14 @@ export default {
                 
           
                 var postData = {
-                    roomId : 1,
+                    roomId : room,
                     police : this.police,
                     teror: this.teror,
                     boom : 200
                 }
           
                 var updates = {};
-                updates['/bomber'+'/room1'] = postData;
+                updates['/bomber'+`/room${room}`] = postData;
                 return db.ref().update(updates);
                     
             }else{
