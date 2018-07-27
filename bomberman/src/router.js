@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Pending from './views/Pending.vue'
 import Game from './views/Game.vue'
-import Bomber from './views/bomber.vue'
+import CreateRoom from './views/CreateRoom.vue'
+
 
 Vue.use(Router)
 
@@ -23,10 +24,11 @@ export default new Router({
       path: '/game',
       name: 'game',
       component: Game
-    }, {
-      path: '/bomber',
-      name: 'bomber',
-      component: Bomber
+    },
+    {
+      path : '/createRoom',
+      name : 'createRoom',
+      component: CreateRoom
     }
   ],
   mode: 'history'
