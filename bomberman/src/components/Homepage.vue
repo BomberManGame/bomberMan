@@ -153,7 +153,8 @@ export default {
           this.seen = false
         }
       }
-      this.room = 1
+      // this.room = 1
+      localStorage.setItem('room', 1)
     },
     selectPos2 () {
       if (this.playersRoom2.length === 0) {
@@ -165,7 +166,9 @@ export default {
           this.seen = false
         }
       }
-      this.room = 2
+      // this.room = 2
+      localStorage.setItem('room', 2)
+
     },
     selectPos3 () {
       if (this.playersRoom3.length === 0) {
@@ -177,7 +180,8 @@ export default {
           this.seen = false
         }
       }
-      this.room = 3
+      // this.room = 3
+      localStorage.setItem('room', 3)
     },
     selectPos4 () {
       if (this.playersRoom4.length === 0) {
@@ -189,32 +193,69 @@ export default {
           this.seen = false
         }
       }
-      this.room = 4
+      // this.room = 4
+      localStorage.setItem('room', 4)
     },
     selectTer1 () {
-      if (this.playersRoom1.length === 0) {
-        this.position = 'Terorist1'
-        this.seen = true
-        // console.log("------- room 1 terrrr",this.playersRoom1)
-      } else {
-        if (this.playersRoom1[0].position === 'Terorist1') {
-          alert('Terorist has been taken! Please choose another room or select Police.')
-          this.seen = false
-        }
-      }
+      // if (this.playersRoom1.length === 0) {
+      //   this.position = 'Terorist1'
+      //   this.seen = true
+      //   console.log("------- room 1 terrrr------",this.position)
+      // } else {
+      //   if (this.playersRoom1[0].position === 'Terorist1') {
+      //     alert('Terorist has been taken! Please choose another room or select Police.')
+      //     this.seen = true
+      //   }
+      // }
+      // this.room = 1
+      this.position = 'Terorist1'
+      this.seen = true
       this.room = 1
     },
     selectTer2 () {
+      // if (this.playersRoom2.length === 0) {
+      //   this.position = 'Terorist2'
+      //   this.seen = true
+      //   console.log("------- room 2 terrrr------",this.position)
+      // } else {
+      //   if (this.playersRoom2[0].position === 'Terorist2') {
+      //     alert('Terorist has been taken! Please choose another room or select Police.')
+      //     this.seen = false
+      //   }
+      // }
+      // this.room = 2
       this.position = 'Terorist2'
       this.seen = true
       this.room = 2
     },
     selectTer3 () {
+      // if (this.playersRoom3.length === 0) {
+      //   this.position = 'Terorist3'
+      //   this.seen = true
+      //   console.log("------- room 3 terrrr------",this.position)
+      // } else {
+      //   if (this.playersRoom3[0].position === 'Terorist3') {
+      //     alert('Terorist has been taken! Please choose another room or select Police.')
+      //     this.seen = true
+      //   }
+      // }
+      // this.room = 3
       this.position = 'Terorist3'
       this.seen = true
       this.room = 3
     },
     selectTer4 () {
+      // if (this.playersRoom4.length === 0) {
+      //   this.position = 'Terorist4'
+      //   this.seen = true
+      //   console.log("------- room 4 terrrr------",this.position)
+      // } else {
+      //   if (this.playersRoom4[0].position === 'Terorist4') {
+      //     alert('Terorist has been taken! Please choose another room or select Police.')
+      //     this.seen = true
+      //   }
+      // }
+      // this.room = 4
       this.position = 'Terorist4'
       this.seen = true
       this.room = 4
