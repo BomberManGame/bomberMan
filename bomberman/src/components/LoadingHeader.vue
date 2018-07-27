@@ -10,20 +10,15 @@
         <div class="lds-heart"><div>
           <img class="logo" src="../assets/bom.gif"/>            
         </div></div>
-        
-
     </div>
    
 </template>
-
-
 
 <script>
 export default {
     
 }
 </script>
-
 
 <style scoped>
 

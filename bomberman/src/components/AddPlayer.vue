@@ -1,8 +1,8 @@
 <template>
     <div id="AddPlayer">
         <div class="row">
-
             <div class="col-sm-6">
+
                 <div id="police">
                     <table align="center" class="player">
                         <tr>
@@ -36,17 +36,15 @@
                         </tr>
                     </table>
                 </div>
-
             </div>
         </div>
+        
         <div align="center">
             <button v-on:click="startGame()" class="btnStart">
                 GO!
             </button>
         </div>
-
-    </div>           
-
+    </div>
 </template>
 
 <script>
@@ -62,12 +60,29 @@ export default {
         return {
             name: '',
             players: {
-                police: 'ddd',
-                terrorist: 'ddd'
+                police: 'Police',
+                terrorist: 'Terrorist'
             }
         }
 
     },
+
+     mounted () {
+        //db ref nya ke 'bomber/room? dari localstorage
+        let room = localStorage.getItem("room")
+        console.log(room)
+        if(room === undefined){
+        alert('Please select room to play the game!')
+        this.$router.replace('/homepage')
+        } else {
+            var getBoomSize = db.ref('bomber/'+ `room${room}`)
+            console.log(getBoomSize)
+            getBoomSize.on('value',(snapshot)=> {
+                this.getBomb(snapshot.val());
+                //this.play()
+            })
+        }
+     },
 
     methods: {
         startGame() {
@@ -77,6 +92,10 @@ export default {
             }
             else {
                 swal("Lets GO!", "", "success");
+                console.log('redirect to game')
+                this.$router.replace('/game')
+
+
             }
         }
 
