@@ -10,9 +10,11 @@
         </div>
         <br>
         <div class="row">
-            <img src="/img/bomb.gif" alt="bomb" v-bind:height="boomSize" v-bind:width="boomSize">
+            <img v-if="isPlay" src="/img/bomb.gif" alt="bomb" v-bind:height="boomSize" v-bind:width="boomSize">
         </div>
         <button v-on:click="createRoom">create</button>
+        <button v-on:click="play">play</button>
+        <button v-on:click="exit">exit</button>
     </div>
 </template>
 
@@ -27,6 +29,7 @@ export default {
             police : '',
             teror : '',
             roomId :'',
+            isPlay: false,
         }
     },
     mounted(){
@@ -34,12 +37,13 @@ export default {
         console.log(getBoomSize)
          getBoomSize.on('value',(snapshot)=> {
             this.getBomb(snapshot.val());
+            this.play()
         })
         
     },
     methods:{
         getBomb(val){
-             console.log("============",val.boom)
+             console.log("======boom======",val.boom)
              console.log("============",val.roomId)
              this.boomSize = val.boom
              console.log("============",val.police)
@@ -85,6 +89,20 @@ export default {
              var updates = {};
             updates['/bomber'+'/room1'] = postData;
            return db.ref().update(updates);
+        },
+        play(){
+            let room = localStorage.getItem('room')
+            if(room){
+                this.isPlay = true
+            }else{
+                this.isPlay = false
+            }
+            console.log(this.isPlay)
+        },
+        exit(){
+            console.log("harusnya exit")
+            localStorage.removeItem("room")
+            this.isPlay = false
         }
     },
     computed:{
