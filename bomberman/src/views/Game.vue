@@ -11,10 +11,14 @@
         <br>
         <div class="row">
             <img v-if="isPlay" src="/img/bomb.gif" alt="bomb" v-bind:height="boomSize" v-bind:width="boomSize">
+            <img v-if="isExplode" src="/img/explode.gif" alt="bomb" height="100%" width="100%">
+             <img v-if="isWinner" src="/img/winner.gif" alt="bomb" height="100%" width="100%">
+            
         </div>
         <button v-on:click="createRoom">create</button>
         <button v-on:click="play">play</button>
         <button v-on:click="exit">exit</button>
+        
     </div>
 </template>
 
@@ -30,6 +34,8 @@ export default {
             teror : '',
             roomId :'',
             isPlay: false,
+            isExplode : false,
+            isWinner : false,
         }
     },
     mounted(){
@@ -37,7 +43,7 @@ export default {
         console.log(getBoomSize)
          getBoomSize.on('value',(snapshot)=> {
             this.getBomb(snapshot.val());
-            this.play()
+            // this.play()
         })
         
     },
@@ -49,7 +55,7 @@ export default {
              console.log("============",val.police)
              this.roomId = val.roomId
              console.log("============",val.teror)
-                        
+             this.explode(val.boom)
         }, 
         createRoom(){
             // console.log("create 001")
@@ -92,17 +98,45 @@ export default {
         },
         play(){
             let room = localStorage.getItem('room')
+            localStorage.setItem("room", 1)
             if(room){
                 this.isPlay = true
+                this.isExplode = false
+                this.isWinner = false
+                
+          
+                var postData = {
+                    roomId : 1,
+                    police : this.police,
+                    teror: this.teror,
+                    boom : 200
+                }
+          
+                var updates = {};
+                updates['/bomber'+'/room1'] = postData;
+                return db.ref().update(updates);
+                    
             }else{
                 this.isPlay = false
             }
-            console.log(this.isPlay)
         },
         exit(){
             console.log("harusnya exit")
             localStorage.removeItem("room")
             this.isPlay = false
+        },
+        explode(num){
+            console.log("explodeee",num)
+            console.log("this play",this.isPlay)
+            if(num > 300){
+                this.isExplode = true
+                this.isPlay = false
+            }else if(num < 200 && num > 0){
+                this.isExplode = false
+            }else if(num < 0){
+                this.isWinner = true
+                this.isPlay = false
+            }
         }
     },
     computed:{
