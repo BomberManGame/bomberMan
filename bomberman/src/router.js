@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Homepage from './views/Homepage.vue'
-import Pending from './views/Pending.vue'
+import Loading from './views/Loading.vue'
 import Game from './views/Game.vue'
 import CreateRoom from './views/CreateRoom.vue'
 
@@ -16,9 +17,9 @@ export default new Router({
       component: Homepage
     },
     {
-      path: '/pending',
-      name: 'pending',
-      component: Pending
+      path: '/loading',
+      name: 'loading',
+      component: Loading
     },
     {
       path: '/game',
