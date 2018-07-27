@@ -56,14 +56,14 @@ export default {
              console.log("=======room=====",val.roomId)
              console.log("===police====",val.police)
              console.log("===teror===",val.teror)
-             this.boomSize = val.boom
+            this.boomSize = val.boom
+            this.explode(val.boom)
              this.roomId = val.roomId
-             this.explode(val.boom)
         }, 
         createRoom(){
             // console.log("create 001")
-            // db.ref('bomber/' + 'room').set({
-            //     roomId: 2,
+            // db.ref('bomber/' + 'room'+1).set({
+            //     roomId: 1,
             //     teror: '',
             //     police :'',
             //     bomb: 100,
@@ -114,7 +114,7 @@ export default {
                     roomId : room,
                     police : this.police,
                     teror: this.teror,
-                    boom : 200
+                    boom : 500
                 }
           
                 var updates = {};
@@ -133,13 +133,13 @@ export default {
         explode(num){
             console.log("explodeee",num)
             console.log("this play",this.isPlay)
-            if(num > 300){
+            if(num >= 1005){
                 this.isExplode = true
                 this.isWinner = false
                 this.isPlay = false
-            }else if(num < 200 && num > 0){
+            }else if(num < 1000 && num > 0){
                 this.isExplode = false
-            }else if(num < 0){
+            }else if(num <= 0){
                 this.isWinner = true
                 this.isExplode = false
                 this.isPlay = false
