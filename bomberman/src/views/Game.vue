@@ -42,10 +42,10 @@ export default {
   mounted () {
       //db ref nya ke 'bomber/room? dari localstorage
     let room = localStorage.getItem("room")
-    console.log(room)
-    if(room === undefined){
+    console.log("iiniiiiiii roooomm-------",room)
+    if(room === null){
       alert('Please select room to play the game!')
-      this.$router.replace('/homepage')
+      this.$router.replace('/')
     } else {
         var getBoomSize = db.ref('bomber/'+ `room${room}`)
         console.log(getBoomSize)
@@ -124,7 +124,7 @@ export default {
     exit () {
       console.log("harusnya exit")
       localStorage.clear()
-      this.$router.replace('/homepage')
+      this.$router.replace('/')
       this.isPlay = false
     },
     explode(num) {
